@@ -28,11 +28,11 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(
           path: HomeScreen.routeName,
-          builder: (BuildContext context, GoRouterState state) => const HomeScreen(),
+          builder: (BuildContext context, GoRouterState state) => HomeScreen(),
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
             state: state,
-            child: const HomeScreen(),
+            child: HomeScreen(),
           ),
         ),
         GoRoute(

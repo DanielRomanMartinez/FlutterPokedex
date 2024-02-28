@@ -11,8 +11,10 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../application/bloc/splash_screen/splash_screen_bloc.dart' as _i4;
-import '../domain/services/splash_service.dart' as _i3;
+import '../application/bloc/custom_bottom_navigation/custom_bottom_navigation_bloc.dart'
+    as _i3;
+import '../application/bloc/splash_screen/splash_screen_bloc.dart' as _i5;
+import '../domain/services/splash_service.dart' as _i4;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
@@ -25,8 +27,10 @@ _i1.GetIt $initGetIt(
     environment,
     environmentFilter,
   );
-  gh.factory<_i3.SplashService>(() => const _i3.SplashService());
-  gh.lazySingleton<_i4.SplashScreenBloc>(
-      () => _i4.SplashScreenBloc(gh<_i3.SplashService>()));
+  gh.lazySingleton<_i3.CustomBottomNavigationBloc>(
+      () => _i3.CustomBottomNavigationBloc());
+  gh.factory<_i4.SplashService>(() => const _i4.SplashService());
+  gh.lazySingleton<_i5.SplashScreenBloc>(
+      () => _i5.SplashScreenBloc(gh<_i4.SplashService>()));
   return getIt;
 }
