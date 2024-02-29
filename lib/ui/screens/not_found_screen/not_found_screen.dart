@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pokedex/ui/common/widgets/application_layout/application_layout.dart';
 
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({
@@ -7,8 +8,15 @@ class NotFoundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Text('Not Found'),
+    return ApplicationLayout(
+      child: const Center(
+        child: Text(
+          'Not Found',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }

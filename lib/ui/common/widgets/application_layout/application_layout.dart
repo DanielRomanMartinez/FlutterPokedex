@@ -37,15 +37,7 @@ class ApplicationLayout extends StatelessWidget {
           },
         ),
       ),
-      body: BlocBuilder<CustomBottomNavigationBloc, CustomBottomNavigationState>(
-        bloc: _customBottomNavigationBloc,
-        builder: (context, state) {
-          if (state is PageScreenLoaded) {
-            return state.child;
-          }
-          return child;
-        },
-      ),
+      body: child,
     );
   }
 }

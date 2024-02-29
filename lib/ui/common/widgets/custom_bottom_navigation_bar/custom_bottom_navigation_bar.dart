@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/application/bloc/custom_bottom_navigation/custom_bottom_navigation_bloc.dart';
+import 'package:flutter_pokedex/ui/screens/captured_pokemons_screen/captured_pokemons_screen.dart';
 import 'package:flutter_pokedex/ui/screens/home_screen/home_screen.dart';
+import 'package:flutter_pokedex/ui/screens/regions_screen/regions_screen.dart';
+import 'package:flutter_pokedex/ui/screens/user_settings_screen/user_settings_screen.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final PageScreen pageScreen;
@@ -23,27 +27,28 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   final List<Map<String, dynamic>> _pages = [
     {
       "enum": PageScreen.home,
-      "child": HomeScreen(),
+      "route": HomeScreen.routeName,
     },
     {
-      "enum": PageScreen.search,
-      "child": HomeScreen(),
+      "enum": PageScreen.regions,
+      "route": RegionsScreen.routeName,
     },
     {
       "enum": PageScreen.favorites,
-      "child": HomeScreen(),
+      "route": CapturedPokemonsScreen.routeName,
     },
     {
       "enum": PageScreen.user,
-      "child": HomeScreen(),
+      "route": UserSettingsScreen.routeName,
     },
   ];
 
   void _onItemTapped(int index) {
     _customBottomNavigationBloc.add(LoadPageScreen(
       pageScreen: _pages[index]["enum"],
-      child: _pages[index]["child"],
     ));
+
+    context.go("/${_pages[index]["route"]}");
   }
 
   @override
@@ -63,7 +68,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           label: 'Pokedex',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: Icon(Icons.map),
           label: 'Regiones',
         ),
         BottomNavigationBarItem(
@@ -71,8 +76,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           label: 'Capturados',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Usuario',
+          icon: Icon(Icons.manage_accounts),
+          label: 'Settings',
         ),
       ],
     );

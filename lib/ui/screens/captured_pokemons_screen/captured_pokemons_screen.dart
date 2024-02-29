@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pokedex/ui/common/widgets/application_layout/application_layout.dart';
 
 class CapturedPokemonsScreen extends StatelessWidget {
   static const String routeName = 'captured-pokemons';
@@ -9,8 +10,15 @@ class CapturedPokemonsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Text('Captured pokemons'),
+    return ApplicationLayout(
+      child: const Center(
+        child: Text(
+          'Captured Pokemons',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }

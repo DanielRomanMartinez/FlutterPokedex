@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pokedex/ui/common/widgets/application_layout/application_layout.dart';
 
 class PokemonDetailScreen extends StatelessWidget {
   static const String routeName = 'pokemon-detail';
@@ -12,8 +13,15 @@ class PokemonDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Text('Pokemon detail'),
+    return ApplicationLayout(
+      child: const Center(
+        child: Text(
+          'Pokemon details',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }

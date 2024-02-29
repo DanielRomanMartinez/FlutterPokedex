@@ -5,7 +5,9 @@ import 'package:flutter_pokedex/ui/screens/home_screen/home_screen.dart';
 import 'package:flutter_pokedex/ui/screens/not_found_screen/not_found_screen.dart';
 import 'package:flutter_pokedex/ui/screens/pokemon_detail_screen/pokemon_detail_screen.dart';
 import 'package:flutter_pokedex/ui/screens/pokemons_screen/pokemons_screen.dart';
+import 'package:flutter_pokedex/ui/screens/regions_screen/regions_screen.dart';
 import 'package:flutter_pokedex/ui/screens/splash_screen/splash_screen.dart';
+import 'package:flutter_pokedex/ui/screens/user_settings_screen/user_settings_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
@@ -28,11 +30,29 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(
           path: HomeScreen.routeName,
-          builder: (BuildContext context, GoRouterState state) => HomeScreen(),
+          builder: (BuildContext context, GoRouterState state) => const HomeScreen(),
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
             state: state,
-            child: HomeScreen(),
+            child: const HomeScreen(),
+          ),
+        ),
+        GoRoute(
+          path: RegionsScreen.routeName,
+          builder: (BuildContext context, GoRouterState state) => const RegionsScreen(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const RegionsScreen(),
+          ),
+        ),
+        GoRoute(
+          path: UserSettingsScreen.routeName,
+          builder: (BuildContext context, GoRouterState state) => const UserSettingsScreen(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const UserSettingsScreen(),
           ),
         ),
         GoRoute(

@@ -18,16 +18,13 @@ class PageScreenLoading extends CustomBottomNavigationStateInitial {
 
 class PageScreenLoaded extends CustomBottomNavigationStateInitial {
   final PageScreen pageScreen;
-  final Widget child;
 
   const PageScreenLoaded({
     required this.pageScreen,
-    required this.child,
   });
 
   @override
   List<Object> get props => [
         pageScreen,
-        child,
       ];
 }

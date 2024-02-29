@@ -10,7 +10,7 @@ part 'custom_bottom_navigation_state.dart';
 
 enum PageScreen {
   home(0),
-  search(1),
+  regions(1),
   favorites(2),
   user(3);
 
@@ -32,7 +32,6 @@ class CustomBottomNavigationBloc
   ) async {
     emit(PageScreenLoaded(
       pageScreen: event.pageScreen,
-      child: event.child,
     ));
   }
 }
