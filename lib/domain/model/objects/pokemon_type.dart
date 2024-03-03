@@ -49,7 +49,7 @@ class PokemonType extends Equatable {
       case 'flying':
         return PokemonColor.flying;
       default:
-        return PokemonColor.allTypes;
+        return PokemonColor.defaultColors;
     }
   }
 

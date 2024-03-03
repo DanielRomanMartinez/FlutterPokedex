@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_pokedex/domain/model/objects/ability.dart';
-import 'package:flutter_pokedex/domain/model/objects/forms.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon_type.dart';
 
 class Pokemon extends Equatable {
@@ -10,9 +8,7 @@ class Pokemon extends Equatable {
   final int weight;
   final bool isCaptured;
   final String image;
-  final List<Ability> abilities;
   final List<PokemonType> types;
-  final List<Forms> forms;
 
   const Pokemon({
     this.id = 0,
@@ -21,9 +17,7 @@ class Pokemon extends Equatable {
     this.weight = 0,
     this.isCaptured = false,
     this.image = '',
-    this.abilities = const [],
     this.types = const [],
-    this.forms = const [],
   });
 
   @override
@@ -34,8 +28,6 @@ class Pokemon extends Equatable {
         weight,
         isCaptured,
         image,
-        abilities,
         types,
-        forms,
       ];
 }

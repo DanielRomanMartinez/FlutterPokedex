@@ -14,6 +14,8 @@ class PokemonDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ApplicationLayout(
+      canPop: true,
+      title: 'Pokemon Name',
       child: const Center(
         child: Text(
           'Pokemon details',

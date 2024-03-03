@@ -2,49 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/application/bloc/custom_bottom_navigation/custom_bottom_navigation_bloc.dart';
 import 'package:flutter_pokedex/ui/screens/captured_pokemons_screen/captured_pokemons_screen.dart';
 import 'package:flutter_pokedex/ui/screens/home_screen/home_screen.dart';
-import 'package:flutter_pokedex/ui/screens/regions_screen/regions_screen.dart';
-import 'package:flutter_pokedex/ui/screens/user_settings_screen/user_settings_screen.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_pokedex/ui/screens/user_information_screen/user_information_screen.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
+class CustomBottomNavigationBar extends StatelessWidget {
+  final Color color;
   final PageScreen pageScreen;
+  final CustomBottomNavigationBloc bloc;
 
-  const CustomBottomNavigationBar({
-    super.key,
-    this.pageScreen = PageScreen.home,
-  });
-
-  @override
-  State<CustomBottomNavigationBar> createState() =>
-      _CustomBottomNavigationBarState();
-}
-
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  final CustomBottomNavigationBloc _customBottomNavigationBloc =
-      GetIt.instance.get<CustomBottomNavigationBloc>();
-
-  final List<Map<String, dynamic>> _pages = [
+  static const List<Map<String, dynamic>> _pages = [
     {
       "enum": PageScreen.home,
       "route": HomeScreen.routeName,
     },
     {
-      "enum": PageScreen.regions,
-      "route": RegionsScreen.routeName,
-    },
-    {
-      "enum": PageScreen.favorites,
+      "enum": PageScreen.capturedPokemons,
       "route": CapturedPokemonsScreen.routeName,
     },
     {
       "enum": PageScreen.user,
-      "route": UserSettingsScreen.routeName,
+      "route": UserInformationScreen.routeName,
     },
   ];
 
-  void _onItemTapped(int index) {
-    _customBottomNavigationBloc.add(LoadPageScreen(
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.color,
+    required this.bloc,
+    this.pageScreen = PageScreen.home,
+  });
+
+  void _onItemTapped(BuildContext context, int index) {
+    bloc.add(LoadPageScreen(
       pageScreen: _pages[index]["enum"],
     ));
 
@@ -54,30 +43,27 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
-      currentIndex: widget.pageScreen.value,
+      backgroundColor: color,
+      onTap: (index) => _onItemTapped(context, index),
+      currentIndex: pageScreen.value,
       unselectedItemColor: Colors.white,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      selectedItemColor: const Color(0xFFF5897F),
+      selectedItemColor: Colors.white,
       selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Image.asset('assets/images/pokemons_inactive.png'),
+          activeIcon: Image.asset('assets/images/pokemons_active.png'),
           label: 'Pokedex',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.map),
-          label: 'Regiones',
+          icon: Image.asset('assets/images/captured_pokemons_inactive.png'),
+          activeIcon: Image.asset('assets/images/captured_pokemons_active.png'),
+          label: 'Captured',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Capturados',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.manage_accounts),
-          label: 'Settings',
+          icon: Image.asset('assets/images/user_inactive.png'),
+          activeIcon: Image.asset('assets/images/user_active.png'),
+          label: 'Information',
         ),
       ],
     );

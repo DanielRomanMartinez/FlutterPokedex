@@ -25,10 +25,10 @@ class ColorsMap {
 }
 
 enum PokemonColor {
-  allTypes(
-    background: Color(0xFF333333),
-    foreground: Color(0xFFFFFFFF),
-    cardBackground: Color(0xFFFFFFFF),
+  defaultColors(
+    background: ColorsMap.bostonUniversityRed,
+    foreground: Color(0xFF000000),
+    cardBackground: Color(0xFFFA7179),
   ),
   water(
     background: Color(0xFF5090D6),

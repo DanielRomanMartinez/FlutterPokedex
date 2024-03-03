@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_pokedex/config/endpoints.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
@@ -30,8 +31,7 @@ class HttpPokemonRepository implements PokemonRepository {
       },
     );
 
-    if (httpPokemonResponse.statusCode == 200) {
-      // TODO: Change to static
+    if (httpPokemonResponse.statusCode == HttpStatus.ok) {
 
       final Map<String, dynamic> pokemonResponse = jsonDecode(httpPokemonResponse.body);
 
@@ -54,16 +54,16 @@ class HttpPokemonRepository implements PokemonRepository {
 
   @override
   Future<Map<String, dynamic>> getPokemons({
-    String text = '',
-    int page = 0,
+    String offset = '0',
+    String limit = '20',
   }) async {
     final Response httpResponse = await _httpService.get(
       Uri.https(
         Endpoints.urlServer,
         Endpoints.pokemons,
         {
-          'offset': '0',
-          'limit': '151', // TODO Make pagination
+          'offset': offset,
+          'limit': limit,
         },
       ),
       headers: <String, String>{
@@ -73,7 +73,7 @@ class HttpPokemonRepository implements PokemonRepository {
 
     final List<Pokemon> pokemons = [];
 
-    if (httpResponse.statusCode == 200) { // TODO: Change to static
+    if (httpResponse.statusCode == HttpStatus.ok) {
 
       final Map<String, dynamic> response = jsonDecode(httpResponse.body);
 
