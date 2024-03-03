@@ -52,7 +52,7 @@ class HiveCapturedPokemonsRepository implements CapturedPokemonsRepository {
 
   @override
   Future<List<Pokemon>> getPokemons({
-    String name = '', // TODO: Make searchable
+    String name = '',
   }) async {
     final List<Pokemon> pokemons = [];
 
