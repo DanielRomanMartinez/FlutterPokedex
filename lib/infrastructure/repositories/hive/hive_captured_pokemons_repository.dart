@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
 import 'package:flutter_pokedex/domain/repositories/captured_pokemon_repository.dart';
 import 'package:flutter_pokedex/infrastructure/providers/hive_provider.dart';
