@@ -35,11 +35,14 @@ class InfrastructureUserService implements UserService {
         }
       }
 
-      final sorted = capturedTypes.entries.toList()..sort((a, b) => a.value.compareTo(b.value));
+      final sorted = capturedTypes.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
 
-      final mostPokemonTypeCaptured = PokemonType(name: sorted.first.key);
-      backgroundColor = mostPokemonTypeCaptured.pokemonColor.background;
-      foregroundColor = mostPokemonTypeCaptured.pokemonColor.foreground;
+      mostPokemonTypeCaptured = PokemonType(name: sorted.first.key);
+
+      if(sorted.length > 1 && sorted.first.value != sorted[1].value){
+        backgroundColor = mostPokemonTypeCaptured.pokemonColor.background;
+        foregroundColor = mostPokemonTypeCaptured.pokemonColor.foreground;
+      }
     }
 
     return User(

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pokedex/application/bloc/captured_pokemons_screen/captured_pokemons_screen_bloc.dart';
+import 'package:flutter_pokedex/application/bloc/user_information/user_information_bloc.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
 import 'package:flutter_pokedex/domain/repositories/captured_pokemon_repository.dart';
 import 'package:flutter_pokedex/domain/repositories/pokemon_repository.dart';
@@ -15,11 +16,13 @@ class PokemonDetailScreenBloc extends Bloc<PokemonDetailScreenEvent, PokemonDeta
   final PokemonRepository _pokemonRepository;
   final CapturedPokemonsRepository _capturedPokemonsRepository;
   final CapturedPokemonsScreenBloc _capturedPokemonsScreenBloc;
+  final UserInformationBloc _userInformationBloc;
 
   PokemonDetailScreenBloc(
     this._pokemonRepository,
     this._capturedPokemonsRepository,
     this._capturedPokemonsScreenBloc,
+    this._userInformationBloc,
   ) : super(const PokemonDetailScreenStateInitial()) {
     on<LoadPokemonDetailScreen>(_handleLoadScreen);
     on<CapturePokemon>(_handleCapturePokemon);
@@ -53,6 +56,7 @@ class PokemonDetailScreenBloc extends Bloc<PokemonDetailScreenEvent, PokemonDeta
 
     if (pokemon != null) {
       _capturedPokemonsScreenBloc.add(const LoadCapturedPokemonsScreen());
+      _userInformationBloc.add(const LoadUserInformation());
       emit(PokemonDetailScreenLoaded(
         pokemon: pokemon,
       ));
@@ -71,6 +75,7 @@ class PokemonDetailScreenBloc extends Bloc<PokemonDetailScreenEvent, PokemonDeta
 
     if (pokemon != null) {
       _capturedPokemonsScreenBloc.add(const LoadCapturedPokemonsScreen());
+      _userInformationBloc.add(const LoadUserInformation());
       emit(PokemonDetailScreenLoaded(
         pokemon: pokemon,
       ));

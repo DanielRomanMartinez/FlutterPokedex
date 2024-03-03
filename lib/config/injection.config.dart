@@ -17,10 +17,10 @@ import '../application/bloc/custom_bottom_navigation/custom_bottom_navigation_bl
     as _i3;
 import '../application/bloc/home_screen/home_screen_bloc.dart' as _i16;
 import '../application/bloc/pokemon_detail_screen/pokemon_detail_screen_bloc.dart'
-    as _i17;
+    as _i18;
 import '../application/bloc/splash_screen/splash_screen_bloc.dart' as _i13;
 import '../application/bloc/user_information/user_information_bloc.dart'
-    as _i18;
+    as _i17;
 import '../domain/repositories/captured_pokemon_repository.dart' as _i8;
 import '../domain/repositories/pokemon_repository.dart' as _i11;
 import '../domain/services/http_service.dart' as _i5;
@@ -63,13 +63,14 @@ _i1.GetIt $initGetIt(
       _i15.InfrastructureUserService(gh<_i8.CapturedPokemonsRepository>()));
   gh.lazySingleton<_i16.HomeScreenBloc>(
       () => _i16.HomeScreenBloc(gh<_i11.PokemonRepository>()));
-  gh.lazySingleton<_i17.PokemonDetailScreenBloc>(
-      () => _i17.PokemonDetailScreenBloc(
+  gh.lazySingleton<_i17.UserInformationBloc>(
+      () => _i17.UserInformationBloc(gh<_i14.UserService>()));
+  gh.lazySingleton<_i18.PokemonDetailScreenBloc>(
+      () => _i18.PokemonDetailScreenBloc(
             gh<_i11.PokemonRepository>(),
             gh<_i8.CapturedPokemonsRepository>(),
             gh<_i10.CapturedPokemonsScreenBloc>(),
+            gh<_i17.UserInformationBloc>(),
           ));
-  gh.lazySingleton<_i18.UserInformationBloc>(
-      () => _i18.UserInformationBloc(gh<_i14.UserService>()));
   return getIt;
 }
