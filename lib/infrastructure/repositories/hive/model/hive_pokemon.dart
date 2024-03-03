@@ -17,12 +17,15 @@ class HivePokemon extends HiveObject {
   final int height;
 
   @HiveField(3)
-  final int weight;
+  final String description;
 
   @HiveField(4)
-  final bool isCaptured;
+  final int weight;
 
   @HiveField(5)
+  final bool isCaptured;
+
+  @HiveField(6)
   final String image;
 
   @HiveField(7)
@@ -31,6 +34,7 @@ class HivePokemon extends HiveObject {
   HivePokemon({
     required this.id,
     required this.name,
+    required this.description,
     required this.height,
     required this.weight,
     required this.isCaptured,
@@ -44,6 +48,7 @@ class HivePokemon extends HiveObject {
     return Pokemon(
       id: id,
       name: name,
+      description: description,
       height: height,
       weight: weight,
       isCaptured: isCaptured,
@@ -59,6 +64,7 @@ class HivePokemon extends HiveObject {
     return HivePokemon(
       id: pokemon.id,
       name: pokemon.name,
+      description: pokemon.description,
       height: pokemon.height,
       weight: pokemon.weight,
       isCaptured: pokemon.isCaptured,

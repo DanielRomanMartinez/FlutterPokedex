@@ -32,7 +32,6 @@ class HttpPokemonRepository implements PokemonRepository {
     );
 
     if (httpPokemonResponse.statusCode == HttpStatus.ok) {
-
       final Map<String, dynamic> pokemonResponse = jsonDecode(httpPokemonResponse.body);
 
       final List<PokemonType> pokemonTypes = [];
@@ -41,12 +40,14 @@ class HttpPokemonRepository implements PokemonRepository {
       }
 
       return Pokemon(
-          id: pokemonResponse['id'],
-          name: pokemonResponse['name'],
-          height: pokemonResponse['height'],
-          weight: pokemonResponse['weight'],
-          image: pokemonResponse['sprites']['front_default'],
-          types: pokemonTypes);
+        id: pokemonResponse['id'],
+        name: pokemonResponse['name'],
+        description: pokemonResponse['name'], // TODO: Description
+        height: pokemonResponse['height'],
+        weight: pokemonResponse['weight'],
+        image: pokemonResponse['sprites']['front_default'],
+        types: pokemonTypes,
+      );
     }
 
     return null;
@@ -61,10 +62,12 @@ class HttpPokemonRepository implements PokemonRepository {
       Uri.https(
         Endpoints.urlServer,
         Endpoints.pokemons,
+          /*
         {
           'offset': offset,
           'limit': limit,
         },
+        */
       ),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -74,7 +77,6 @@ class HttpPokemonRepository implements PokemonRepository {
     final List<Pokemon> pokemons = [];
 
     if (httpResponse.statusCode == HttpStatus.ok) {
-
       final Map<String, dynamic> response = jsonDecode(httpResponse.body);
 
       for (final pokemon in response['results']) {

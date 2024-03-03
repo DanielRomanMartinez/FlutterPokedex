@@ -19,10 +19,11 @@ class HivePokemonAdapter extends TypeAdapter<HivePokemon> {
     return HivePokemon(
       id: fields[0] as int,
       name: fields[1] as String,
+      description: fields[3] as String,
       height: fields[2] as int,
-      weight: fields[3] as int,
-      isCaptured: fields[4] as bool,
-      image: fields[5] as String,
+      weight: fields[4] as int,
+      isCaptured: fields[5] as bool,
+      image: fields[6] as String,
       types: (fields[7] as List).cast<HivePokemonType>(),
     );
   }
@@ -30,7 +31,7 @@ class HivePokemonAdapter extends TypeAdapter<HivePokemon> {
   @override
   void write(BinaryWriter writer, HivePokemon obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,10 +39,12 @@ class HivePokemonAdapter extends TypeAdapter<HivePokemon> {
       ..writeByte(2)
       ..write(obj.height)
       ..writeByte(3)
-      ..write(obj.weight)
+      ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.isCaptured)
+      ..write(obj.weight)
       ..writeByte(5)
+      ..write(obj.isCaptured)
+      ..writeByte(6)
       ..write(obj.image)
       ..writeByte(7)
       ..write(obj.types);

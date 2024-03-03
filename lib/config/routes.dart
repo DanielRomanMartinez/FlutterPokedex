@@ -54,13 +54,13 @@ final GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
-          path: '${PokemonDetailScreen.routeName}/:pokemonId',
+          path: '${PokemonDetailScreen.routeName}/:name',
           builder: (BuildContext context, GoRouterState state) =>
-              PokemonDetailScreen(pokemonId: int.parse(state.pathParameters['pokemonId']!)),
+              PokemonDetailScreen(name: state.pathParameters['name']!),
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
             state: state,
-            child: PokemonDetailScreen(pokemonId: int.parse(state.pathParameters['pokemonId']!)),
+            child: PokemonDetailScreen(name: state.pathParameters['name']!),
           ),
         ),
       ],

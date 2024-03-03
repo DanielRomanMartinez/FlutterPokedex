@@ -5,7 +5,9 @@ import 'package:flutter_pokedex/domain/model/objects/user.dart';
 import 'package:flutter_pokedex/ui/common/theme/shapes.dart';
 import 'package:flutter_pokedex/ui/common/widgets/application_layout/application_layout.dart';
 import 'package:flutter_pokedex/ui/common/widgets/pokemon_card/pokemon_card.dart';
+import 'package:flutter_pokedex/ui/screens/pokemon_detail_screen/pokemon_detail_screen.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
@@ -20,7 +22,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ApplicationLayout(
       canPop: false,
-      title: 'Pokemons',
+      title: 'Pokedex',
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -40,7 +42,12 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
-                        PokemonCard(state.information['content'][index]),
+                        InkWell(
+                          onTap: () {
+                            context.push("/${PokemonDetailScreen.routeName}/${state.information['content'][index].name}");
+                          },
+                          child: PokemonCard(state.information['content'][index]),
+                        ),
                         const SizedBox(height: Shapes.gutter),
                       ],
                     );

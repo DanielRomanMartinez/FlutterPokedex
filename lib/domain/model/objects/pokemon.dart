@@ -4,6 +4,7 @@ import 'package:flutter_pokedex/domain/model/objects/pokemon_type.dart';
 class Pokemon extends Equatable {
   final int id;
   final String name;
+  final String description;
   final int height;
   final int weight;
   final bool isCaptured;
@@ -13,6 +14,7 @@ class Pokemon extends Equatable {
   const Pokemon({
     this.id = 0,
     this.name = 'Name',
+    this.description = 'Description',
     this.height = 0,
     this.weight = 0,
     this.isCaptured = false,
@@ -24,6 +26,7 @@ class Pokemon extends Equatable {
   List<Object?> get props => [
         id,
         name,
+        description,
         height,
         weight,
         isCaptured,
