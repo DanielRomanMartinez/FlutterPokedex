@@ -73,7 +73,21 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                           state.pokemon.image,
                           scale: 0.1,
                         ),
-                      )
+                      ),
+                      InkWell(
+                        onTap: () {
+                          debugPrint('Mark as captured');
+                        },
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: state.pokemon.isCaptured
+                                ? Image.asset('assets/images/captured_pokemons_active.png', scale: 0.75)
+                                : Image.asset('assets/images/captured_pokemons_black.png', scale: 0.75),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
