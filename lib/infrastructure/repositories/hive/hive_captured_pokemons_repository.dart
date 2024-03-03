@@ -52,20 +52,33 @@ class HiveCapturedPokemonsRepository implements CapturedPokemonsRepository {
 
   @override
   Future<List<Pokemon>> getPokemons({
-    String? name = '', // TODO: Make searchable
+    String name = '', // TODO: Make searchable
   }) async {
     final List<Pokemon> pokemons = [];
 
     final Box<dynamic> b = await box;
 
-    final values = b.values.where((pokemon) => pokemon.name.toLowerCase().contains(name)).toList();
-    debugPrint(values.toString()); // TODO: Make searchable
-
-    if (b.keys.isNotEmpty) {
-      for (final key in b.keys) {
-        Pokemon? pokemon = await _read(id: key);
-        if (pokemon != null) pokemons.add(pokemon);
+    if (name.isEmpty) {
+      if (b.keys.isNotEmpty) {
+        for (final key in b.keys) {
+          Pokemon? pokemon = await _read(id: key);
+          if (pokemon != null) pokemons.add(pokemon);
+        }
       }
+
+      return pokemons
+        ..sort(
+          (Pokemon b, Pokemon a) => a.id.compareTo(
+            b.id,
+          ),
+        );
+    }
+
+    final values = b.values.where((pokemon) => pokemon.name.toLowerCase().contains(name)).toList();
+
+    for (final pokemonValue in values) {
+      Pokemon? pokemon = await _read(id: pokemonValue.id);
+      if (pokemon != null) pokemons.add(pokemon);
     }
 
     return pokemons

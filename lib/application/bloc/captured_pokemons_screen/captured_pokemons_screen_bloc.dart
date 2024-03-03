@@ -16,6 +16,7 @@ class CapturedPokemonsScreenBloc extends Bloc<CapturedPokemonsScreenEvent, Captu
     this._capturedPokemonsRepository,
   ) : super(const CapturedPokemonsScreenStateInitial()) {
     on<LoadCapturedPokemonsScreen>(_handleLoadScreen);
+    on<SearchPokemon>(_handleSearchPokemon);
   }
 
   Future<void> _handleLoadScreen(
@@ -25,6 +26,19 @@ class CapturedPokemonsScreenBloc extends Bloc<CapturedPokemonsScreenEvent, Captu
     emit(const LoadingCapturedPokemonsScreen());
 
     List<Pokemon> pokemons = await _capturedPokemonsRepository.getPokemons();
+
+    emit(CapturedPokemonsScreenLoaded(
+      pokemons: pokemons,
+    ));
+  }
+
+  Future<void> _handleSearchPokemon(
+      SearchPokemon event,
+      Emitter<CapturedPokemonsScreenState> emit,
+      ) async {
+    emit(const LoadingCapturedPokemonsScreen());
+
+    List<Pokemon> pokemons = await _capturedPokemonsRepository.getPokemons(name: event.name);
 
     emit(CapturedPokemonsScreenLoaded(
       pokemons: pokemons,

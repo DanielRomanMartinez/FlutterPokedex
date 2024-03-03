@@ -2,7 +2,7 @@ import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
 
 abstract class CapturedPokemonsRepository {
   Future<List<Pokemon>> getPokemons({
-    String? name,
+    String name,
   });
 
   Future<Pokemon?> getPokemon(int id);

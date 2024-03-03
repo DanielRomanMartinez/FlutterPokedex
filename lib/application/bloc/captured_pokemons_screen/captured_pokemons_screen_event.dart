@@ -10,3 +10,16 @@ abstract class CapturedPokemonsScreenEvent extends Equatable {
 class LoadCapturedPokemonsScreen extends CapturedPokemonsScreenEvent {
   const LoadCapturedPokemonsScreen();
 }
+
+class SearchPokemon extends CapturedPokemonsScreenEvent {
+  final String name;
+
+  const SearchPokemon({
+    required this.name,
+  });
+
+  @override
+  List<Object?> get props => [
+        name,
+      ];
+}
