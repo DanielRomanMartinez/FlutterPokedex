@@ -5,7 +5,9 @@ import 'package:flutter_pokedex/domain/model/objects/user.dart';
 import 'package:flutter_pokedex/ui/common/theme/shapes.dart';
 import 'package:flutter_pokedex/ui/common/widgets/application_layout/application_layout.dart';
 import 'package:flutter_pokedex/ui/common/widgets/pokemon_card/pokemon_card.dart';
+import 'package:flutter_pokedex/ui/screens/pokemon_detail_screen/pokemon_detail_screen.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 part 'widgets/no_pokemons.dart';
 
@@ -53,7 +55,12 @@ class _CapturedPokemonsScreenState extends State<CapturedPokemonsScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
-                        PokemonCard(state.pokemons[index]),
+                        InkWell(
+                          onTap: () {
+                            context.push("/${PokemonDetailScreen.routeName}/${state.pokemons[index].name}");
+                          },
+                          child: PokemonCard(state.pokemons[index]),
+                        ),
                         const SizedBox(height: Shapes.gutter),
                       ],
                     );
