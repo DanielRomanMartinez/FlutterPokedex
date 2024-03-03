@@ -77,6 +77,11 @@ class HiveCapturedPokemonsRepository implements CapturedPokemonsRepository {
   }
 
   @override
+  Future<Pokemon?> getPokemon(int id) async {
+    return await _read(id: id);
+  }
+
+  @override
   Future<void> removePokemon(int id) async {
     final HivePokemon? pokemon = await readRaw(id: id);
     if (pokemon != null) pokemon.delete();

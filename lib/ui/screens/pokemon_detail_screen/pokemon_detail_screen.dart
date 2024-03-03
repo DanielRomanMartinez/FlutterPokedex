@@ -13,7 +13,7 @@ class PokemonDetailScreen extends StatefulWidget {
 
   final String name;
 
-  PokemonDetailScreen({
+  const PokemonDetailScreen({
     required this.name,
     super.key,
   });
@@ -76,7 +76,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          debugPrint('Mark as captured');
+                          if(state.pokemon.isCaptured){
+                            _pokemonDetailScreenBloc.add(UnleashPokemon(pokemon: state.pokemon));
+                          } else {
+                            _pokemonDetailScreenBloc.add(CapturePokemon(pokemon: state.pokemon));
+                          }
                         },
                         child: Align(
                           alignment: Alignment.topRight,

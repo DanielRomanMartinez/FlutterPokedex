@@ -51,7 +51,7 @@ class HivePokemon extends HiveObject {
       description: description,
       height: height,
       weight: weight,
-      isCaptured: isCaptured,
+      isCaptured: true,
       image: image,
       types: typesPokemon,
     );
@@ -67,7 +67,7 @@ class HivePokemon extends HiveObject {
       description: pokemon.description,
       height: pokemon.height,
       weight: pokemon.weight,
-      isCaptured: pokemon.isCaptured,
+      isCaptured: true,
       image: pokemon.image,
       types: typesPokemon,
     );

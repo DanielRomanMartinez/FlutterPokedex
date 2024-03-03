@@ -19,3 +19,28 @@ class LoadPokemonDetailScreen extends PokemonDetailScreenEvent {
         name,
       ];
 }
+
+class CapturePokemonActions extends PokemonDetailScreenEvent {
+  final Pokemon pokemon;
+
+  const CapturePokemonActions({
+    required this.pokemon,
+  });
+
+  @override
+  List<Object?> get props => [
+        pokemon,
+      ];
+}
+
+class CapturePokemon extends CapturePokemonActions {
+  const CapturePokemon({
+    required super.pokemon,
+  });
+}
+
+class UnleashPokemon extends CapturePokemonActions {
+  const UnleashPokemon({
+    required super.pokemon,
+  });
+}

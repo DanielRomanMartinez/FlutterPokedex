@@ -5,6 +5,7 @@ import 'package:flutter_pokedex/config/endpoints.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon_type.dart';
 import 'package:flutter_pokedex/domain/model/value_object/response.dart';
+import 'package:flutter_pokedex/domain/repositories/captured_pokemon_repository.dart';
 import 'package:flutter_pokedex/domain/repositories/pokemon_repository.dart';
 import 'package:flutter_pokedex/domain/services/http_service.dart';
 import 'package:injectable/injectable.dart';
@@ -12,9 +13,11 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: PokemonRepository)
 class HttpPokemonRepository implements PokemonRepository {
   final HttpService _httpService;
+  final CapturedPokemonsRepository _capturedPokemonsRepository;
 
   HttpPokemonRepository(
     this._httpService,
+    this._capturedPokemonsRepository,
   );
 
   @override
@@ -39,14 +42,17 @@ class HttpPokemonRepository implements PokemonRepository {
         pokemonTypes.add(PokemonType(name: pokemonType['type']['name']));
       }
 
+      final Pokemon? pokemon = await _capturedPokemonsRepository.getPokemon(pokemonResponse['id']);
+
       return Pokemon(
         id: pokemonResponse['id'],
         name: pokemonResponse['name'],
-        description: pokemonResponse['name'], // TODO: Description
+        description: pokemonResponse['name'], // TODO: Requires make request to another endpoint
         height: pokemonResponse['height'],
         weight: pokemonResponse['weight'],
         image: pokemonResponse['sprites']['front_default'],
         types: pokemonTypes,
+        isCaptured: pokemon != null,
       );
     }
 

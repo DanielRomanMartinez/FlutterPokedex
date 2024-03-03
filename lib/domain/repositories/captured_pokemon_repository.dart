@@ -5,6 +5,8 @@ abstract class CapturedPokemonsRepository {
     String? name,
   });
 
+  Future<Pokemon?> getPokemon(int id);
+
   Future<void> markAsCaptured(Pokemon pokemon);
 
   Future<void> removePokemon(int id);
