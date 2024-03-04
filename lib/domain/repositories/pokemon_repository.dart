@@ -6,7 +6,7 @@ abstract class PokemonRepository {
   });
 
   Future<Map<String, dynamic>> getPokemons({
-    String offset = '0',
-    String limit = '151',
+    required int offset,
+    required int limit,
   });
 }

@@ -23,7 +23,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   ) async {
     emit(const LoadingHomeScreen());
 
-    final information = await _pokemonRepository.getPokemons();
+    final information = await _pokemonRepository.getPokemons(
+      offset: 0,
+      limit: 151,
+    );
 
     emit(HomeScreenLoaded(
       information: information,

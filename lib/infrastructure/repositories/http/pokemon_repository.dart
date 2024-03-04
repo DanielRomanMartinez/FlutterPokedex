@@ -12,6 +12,11 @@ import 'package:injectable/injectable.dart';
 
 @Injectable(as: PokemonRepository)
 class HttpPokemonRepository implements PokemonRepository {
+
+  static const int maxOffset = 151;
+  int currentOffset = 0;
+  int currentLimit = 20;
+
   final HttpService _httpService;
   final CapturedPokemonsRepository _capturedPokemonsRepository;
 
@@ -61,19 +66,17 @@ class HttpPokemonRepository implements PokemonRepository {
 
   @override
   Future<Map<String, dynamic>> getPokemons({
-    String offset = '0',
-    String limit = '20',
+    required int offset,
+    required int limit,
   }) async {
     final Response httpResponse = await _httpService.get(
       Uri.https(
         Endpoints.urlServer,
         Endpoints.pokemons,
-          /*
         {
-          'offset': offset,
-          'limit': limit,
+          'offset': offset.toString(),
+          'limit': limit.toString(),
         },
-        */
       ),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -95,8 +98,8 @@ class HttpPokemonRepository implements PokemonRepository {
     }
 
     return {
-      'offset': '0', // TODO: Make pagination
-      'limit': '151', // TODO: Make pagination
+      'offset': 0, // TODO: Make pagination
+      'limit': 151, // TODO: Make pagination
       'content': pokemons,
     };
   }
