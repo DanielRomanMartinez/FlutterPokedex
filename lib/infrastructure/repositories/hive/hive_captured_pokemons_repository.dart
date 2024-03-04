@@ -73,7 +73,7 @@ class HiveCapturedPokemonsRepository implements CapturedPokemonsRepository {
         );
     }
 
-    final values = b.values.where((pokemon) => pokemon.name.toLowerCase().contains(name)).toList();
+    final values = b.values.where((pokemon) => pokemon.name.toLowerCase().contains(name.toLowerCase())).toList();
 
     for (final pokemonValue in values) {
       Pokemon? pokemon = await _read(id: pokemonValue.id);

@@ -39,7 +39,7 @@ class InfrastructureUserService implements UserService {
 
       mostPokemonTypeCaptured = PokemonType(name: sorted.first.key);
 
-      if(sorted.length > 1 && sorted.first.value != sorted[1].value){
+      if( sorted.length == 1 || (sorted.length > 1 && sorted.first.value != sorted[1].value)){
         backgroundColor = mostPokemonTypeCaptured.pokemonColor.background;
         foregroundColor = mostPokemonTypeCaptured.pokemonColor.foreground;
       }

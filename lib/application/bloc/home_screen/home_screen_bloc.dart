@@ -25,7 +25,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
     final information = await _pokemonRepository.getPokemons(
       offset: 0,
-      limit: 151,
+      limit: 10,
     );
 
     emit(HomeScreenLoaded(
