@@ -89,8 +89,15 @@ class _CapturedPokemonsScreenState extends State<CapturedPokemonsScreen> {
                     }
 
                     return const Center(
-                      child: CircularProgressIndicator(
-                        color: User.defaultBackgroundColor,
+                      child: Row(
+                        children: [
+                          Text('Loading...'),
+                          SizedBox(width: 5),
+                          CircularProgressIndicator(
+                            color: User.defaultBackgroundColor,
+                          ),
+
+                        ],
                       ),
                     );
                   },

@@ -34,6 +34,7 @@ dev_dependencies:
   golden_toolkit: ^0.15.0
   injectable_generator: ^2.4.1
   mockito: ^5.4.4
+  mocktail_image_network: ^1.1.0
   test: ^1.24.9 # Not possible to upgrade yet
 
 flutter:
