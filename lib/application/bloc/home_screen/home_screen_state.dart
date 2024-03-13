@@ -14,9 +14,10 @@ class HomeScreenStateInitial extends HomeScreenState {
 
 class LoadingHomeScreen extends HomeScreenStateInitial {
   const LoadingHomeScreen();
+}
 
-  @override
-  List<Object> get props => [];
+class HomeScreenError extends HomeScreenStateInitial {
+  const HomeScreenError();
 }
 
 class HomeScreenLoaded extends HomeScreenStateInitial {
@@ -31,3 +32,4 @@ class HomeScreenLoaded extends HomeScreenStateInitial {
         information,
       ];
 }
+

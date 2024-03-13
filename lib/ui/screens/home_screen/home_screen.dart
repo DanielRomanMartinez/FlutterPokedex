@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
             bloc: _homeScreenBloc,
             builder: (context, state) {
-              if (state is! HomeScreenLoaded) {
+              if (state is! HomeScreenLoaded && state is! HomeScreenError) {
                 _homeScreenBloc.add(const LoadHomeScreen());
               }
 
@@ -44,7 +44,8 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            context.push("/${PokemonDetailScreen.routeName}/${state.information['content'][index].name}");
+                            context
+                                .push("/${PokemonDetailScreen.routeName}/${state.information['content'][index].name}");
                           },
                           child: PokemonCard(state.information['content'][index]),
                         ),
@@ -52,6 +53,46 @@ class HomeScreen extends StatelessWidget {
                       ],
                     );
                   },
+                );
+              }
+
+              if (state is HomeScreenError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Something went wrong',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: Shapes.gutter2x),
+                      InkWell(
+                        onTap: () => _homeScreenBloc.add(const LoadHomeScreen()),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color(0xFF173EA5),
+                          ),
+                          child: const Text(
+                            'Try again',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 );
               }
 

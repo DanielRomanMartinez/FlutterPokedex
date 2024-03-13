@@ -85,8 +85,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         ),
                       ),
                     )
-                        : Center(
-                      child: const Text(
+                        : const Center(
+                      child: Text(
                         'Start',
                         style: TextStyle(
                           color: Colors.white,
