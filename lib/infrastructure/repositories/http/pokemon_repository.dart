@@ -112,7 +112,7 @@ class HttpPokemonRepository implements PokemonRepository {
       };
     } on ApiConnectionError {
       rethrow;
-    } on Exception catch(e) {
+    } on Exception {
       rethrow;
     }
   }
