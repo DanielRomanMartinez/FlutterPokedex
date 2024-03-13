@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pokedex/ui/common/transactions/no_animation_page_transation.dart';
 import 'package:flutter_pokedex/ui/screens/captured_pokemons_screen/captured_pokemons_screen.dart';
 import 'package:flutter_pokedex/ui/screens/home_screen/home_screen.dart';
+import 'package:flutter_pokedex/ui/screens/intro_screen/intro_screen.dart';
 import 'package:flutter_pokedex/ui/screens/not_found_screen/not_found_screen.dart';
 import 'package:flutter_pokedex/ui/screens/pokemon_detail_screen/pokemon_detail_screen.dart';
 import 'package:flutter_pokedex/ui/screens/splash_screen/splash_screen.dart';
@@ -24,6 +25,15 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: const SplashScreen(),
+          ),
+        ),
+        GoRoute(
+          path: IntroScreen.routeName,
+          builder: (BuildContext context, GoRouterState state) => const IntroScreen(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const IntroScreen(),
           ),
         ),
         GoRoute(
