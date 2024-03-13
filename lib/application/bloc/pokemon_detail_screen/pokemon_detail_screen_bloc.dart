@@ -48,8 +48,6 @@ class PokemonDetailScreenBloc extends Bloc<PokemonDetailScreenEvent, PokemonDeta
     CapturePokemon event,
     Emitter<PokemonDetailScreenState> emit,
   ) async {
-    emit(const LoadingPokemonDetailScreen());
-
     _capturedPokemonsRepository.markAsCaptured(event.pokemon);
 
     final Pokemon? pokemon = await _pokemonRepository.getPokemon(name: event.pokemon.name);
@@ -67,8 +65,6 @@ class PokemonDetailScreenBloc extends Bloc<PokemonDetailScreenEvent, PokemonDeta
     UnleashPokemon event,
     Emitter<PokemonDetailScreenState> emit,
   ) async {
-    emit(const LoadingPokemonDetailScreen());
-
     _capturedPokemonsRepository.removePokemon(event.pokemon.id);
 
     final Pokemon? pokemon = await _pokemonRepository.getPokemon(name: event.pokemon.name);
