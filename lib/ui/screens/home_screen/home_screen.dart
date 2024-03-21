@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                   if (isOnline) {
                     if (state is! HomeScreenLoaded &&
                         state is! HomeScreenError) {
-                      // _homeScreenBloc.add(const LoadHomeScreen());
+                      _homeScreenBloc.add(const LoadHomeScreen());
                     }
 
                     if (state is HomeScreenError) {
