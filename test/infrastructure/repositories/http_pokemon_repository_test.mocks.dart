@@ -61,19 +61,26 @@ class MockHttpService extends _i1.Mock implements _i4.HttpService {
   _i5.Future<_i2.CachedResponse> get(
     Uri? url, {
     Map<String, String>? headers,
+    bool? cached = true,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [url],
-          {#headers: headers},
+          {
+            #headers: headers,
+            #cached: cached,
+          },
         ),
         returnValue: _i5.Future<_i2.CachedResponse>.value(_FakeCachedResponse_0(
           this,
           Invocation.method(
             #get,
             [url],
-            {#headers: headers},
+            {
+              #headers: headers,
+              #cached: cached,
+            },
           ),
         )),
       ) as _i5.Future<_i2.CachedResponse>);

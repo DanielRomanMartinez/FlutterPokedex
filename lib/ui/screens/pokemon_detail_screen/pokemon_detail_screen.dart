@@ -70,11 +70,13 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                         ),
                       ),
                       Center(
-                        child: CachedNetworkImage(
-                          imageUrl: state.pokemon.image,
-                          width: 25,
-                          placeholder: (context, url) => const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                        child: Transform.scale(
+                          scale: 2.2,
+                          child: CachedNetworkImage(
+                            imageUrl: state.pokemon.image,
+                            placeholder: (context, url) => const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                          ),
                         ),
                       ),
                       InkWell(

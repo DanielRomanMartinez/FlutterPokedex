@@ -7,6 +7,7 @@ abstract class HttpService {
   Future<CachedResponse> get(
     Uri url, {
     Map<String, String>? headers,
+    bool cached = true,
   });
 
   Future<Response> post(

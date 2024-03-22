@@ -72,6 +72,7 @@ class HttpPokemonRepository implements PokemonRepository {
   Future<Map<String, dynamic>> getPokemons({
     required int offset,
     required int limit,
+    bool cached = true,
   }) async {
     try {
       final CachedResponse httpResponse = await _httpService.get(

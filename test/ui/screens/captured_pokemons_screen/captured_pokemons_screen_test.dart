@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_pokedex/application/bloc/captured_pokemons_screen/captured_pokemons_screen_bloc.dart';
 import 'package:flutter_pokedex/application/bloc/custom_bottom_navigation/custom_bottom_navigation_bloc.dart';
 import 'package:flutter_pokedex/application/bloc/user_information/user_information_bloc.dart';
@@ -14,6 +17,12 @@ import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import 'captured_pokemons_screen_test.mocks.dart';
+
+class _Constants {
+  static const String channelPath = "plugins.flutter.io/path_provider";
+  static const String methodNameForPath = "getApplicationSupportDirectory";
+  static const String methodNameForTempPath = "getTemporaryDirectory";
+}
 
 @GenerateMocks([
   CapturedPokemonsScreenBloc,
@@ -40,20 +49,39 @@ void main() {
     ],
   );
 
-  setUpAll(() {
+  setUpAll(() async {
     capturedPokemonsScreenBloc = MockCapturedPokemonsScreenBloc();
     customBottomNavigationBloc = MockCustomBottomNavigationBloc();
     userInformationBloc = MockUserInformationBloc();
 
     final getIt = GetIt.instance;
-    getIt.registerSingleton<CapturedPokemonsScreenBloc>(capturedPokemonsScreenBloc);
-    getIt.registerSingleton<CustomBottomNavigationBloc>(customBottomNavigationBloc);
+    getIt.registerSingleton<CapturedPokemonsScreenBloc>(
+        capturedPokemonsScreenBloc);
+    getIt.registerSingleton<CustomBottomNavigationBloc>(
+        customBottomNavigationBloc);
     getIt.registerSingleton<UserInformationBloc>(userInformationBloc);
+
+    String? providedPath;
+
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      const MethodChannel(_Constants.channelPath),
+      (MethodCall methodCall) async {
+        if (methodCall.method == _Constants.methodNameForPath) {
+          return providedPath;
+        }
+        if (methodCall.method == _Constants.methodNameForTempPath) {
+          return providedPath;
+        }
+        return null;
+      },
+    );
   });
 
   group('Captured Screen Test', () {
     testWidgets('Pump and test widget - Initial', (WidgetTester tester) async {
-      const CapturedPokemonsScreenState state = CapturedPokemonsScreenStateInitial();
+      const CapturedPokemonsScreenState state =
+          CapturedPokemonsScreenStateInitial();
       const UserInformationState userState = UserInformationLoaded(
         user: User(
           numPokemonsCaptured: 0,
@@ -62,7 +90,8 @@ void main() {
           mostPokemonTypeCaptured: null,
         ),
       );
-      const CustomBottomNavigationState customBottomNavigationState = CustomBottomNavigationStateInitial();
+      const CustomBottomNavigationState customBottomNavigationState =
+          CustomBottomNavigationStateInitial();
 
       when(capturedPokemonsScreenBloc.stream).thenAnswer((_) {
         when(capturedPokemonsScreenBloc.state).thenAnswer((_) => state);
@@ -75,13 +104,15 @@ void main() {
       });
 
       when(customBottomNavigationBloc.stream).thenAnswer((_) {
-        when(customBottomNavigationBloc.state).thenAnswer((_) => customBottomNavigationState);
+        when(customBottomNavigationBloc.state)
+            .thenAnswer((_) => customBottomNavigationState);
         return Stream.value(customBottomNavigationState);
       });
 
       when(capturedPokemonsScreenBloc.state).thenAnswer((_) => state);
       when(userInformationBloc.state).thenAnswer((_) => userState);
-      when(customBottomNavigationBloc.state).thenAnswer((_) => customBottomNavigationState);
+      when(customBottomNavigationBloc.state)
+          .thenAnswer((_) => customBottomNavigationState);
 
       await tester.pumpWidget(
         const MaterialApp(
@@ -94,11 +125,13 @@ void main() {
 
       await expectLater(
         find.byType(MaterialApp),
-        matchesGoldenFile('../../goldens/captured_pokemons_screen/captured_pokemons_screen_1.png'),
+        matchesGoldenFile(
+            '../../goldens/captured_pokemons_screen/captured_pokemons_screen_1.png'),
       );
     });
 
-    testWidgets('Pump and test widget - Pokemons Loaded', (WidgetTester tester) async {
+    testWidgets('Pump and test widget - Pokemons Loaded',
+        (WidgetTester tester) async {
       const CapturedPokemonsScreenState state = CapturedPokemonsScreenLoaded(
         pokemons: [
           pokemon,
@@ -112,7 +145,8 @@ void main() {
           mostPokemonTypeCaptured: null,
         ),
       );
-      const CustomBottomNavigationState customBottomNavigationState = CustomBottomNavigationStateInitial();
+      const CustomBottomNavigationState customBottomNavigationState =
+          CustomBottomNavigationStateInitial();
 
       when(capturedPokemonsScreenBloc.stream).thenAnswer((_) {
         when(capturedPokemonsScreenBloc.state).thenAnswer((_) => state);
@@ -125,26 +159,29 @@ void main() {
       });
 
       when(customBottomNavigationBloc.stream).thenAnswer((_) {
-        when(customBottomNavigationBloc.state).thenAnswer((_) => customBottomNavigationState);
+        when(customBottomNavigationBloc.state)
+            .thenAnswer((_) => customBottomNavigationState);
         return Stream.value(customBottomNavigationState);
       });
 
       when(capturedPokemonsScreenBloc.state).thenAnswer((_) => state);
       when(userInformationBloc.state).thenAnswer((_) => userState);
-      when(customBottomNavigationBloc.state).thenAnswer((_) => customBottomNavigationState);
+      when(customBottomNavigationBloc.state)
+          .thenAnswer((_) => customBottomNavigationState);
 
       await mockNetworkImages(() async => await tester.pumpWidget(
-        const MaterialApp(
-          home: CapturedPokemonsScreen(),
-        ),
-      ));
+            const MaterialApp(
+              home: CapturedPokemonsScreen(),
+            ),
+          ));
 
       Finder textFinder = find.text(pokemon.name.capitalize());
       expect(textFinder, findsOneWidget);
 
       await expectLater(
         find.byType(MaterialApp),
-        matchesGoldenFile('../../goldens/captured_pokemons_screen/captured_pokemons_screen_2.png'),
+        matchesGoldenFile(
+            '../../goldens/captured_pokemons_screen/captured_pokemons_screen_2.png'),
       );
     });
   });

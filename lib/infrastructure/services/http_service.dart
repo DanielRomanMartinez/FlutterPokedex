@@ -12,37 +12,29 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: HttpService)
 class FlutterHttpService implements HttpService {
   @override
-  Future<CachedResponse> get(Uri url, {Map<String, String>? headers}) async {
-    final FileInfo? file =
-        await DefaultCacheManager().getFileFromCache(url.toString());
+  Future<CachedResponse> get(
+    Uri url, {
+    Map<String, String>? headers,
+    bool cached = true,
+  }) async {
+    if (cached) {
+      final FileInfo? file =
+          await DefaultCacheManager().getFileFromCache(url.toString());
 
-    if (file == null) {
-      final http.Response response = await http.get(
-        url,
-      );
-
-      List<int> list = response.body.codeUnits;
-      Uint8List fileBytes = Uint8List.fromList(list);
-      DefaultCacheManager().putFile(url.toString(), fileBytes);
-
-      return CachedResponse(Response(
-        statusCode: HttpStatus.ok,
-        body: response.body,
-        bodyBytes: response.bodyBytes,
-        headers: const {
-          HttpHeaders.contentTypeHeader: "application/json;charset=utf-8",
-        },
-      ));
-
+      if (file == null) {
+        return _makeGetHttpPetition(url: url);
+      } else {
+        return CachedResponse(Response(
+          statusCode: HttpStatus.ok,
+          body: file.file.readAsStringSync(),
+          bodyBytes: file.file.readAsBytesSync(),
+          headers: const {
+            HttpHeaders.contentTypeHeader: "application/json;charset=utf-8",
+          },
+        ));
+      }
     } else {
-      return CachedResponse(Response(
-        statusCode: HttpStatus.ok,
-        body: file.file.readAsStringSync(),
-        bodyBytes: file.file.readAsBytesSync(),
-        headers: const {
-          HttpHeaders.contentTypeHeader: "application/json;charset=utf-8",
-        },
-      ));
+      return _makeGetHttpPetition(url: url);
     }
   }
 
@@ -110,5 +102,26 @@ class FlutterHttpService implements HttpService {
       bodyBytes: response.bodyBytes,
       headers: response.headers,
     );
+  }
+
+  Future<CachedResponse> _makeGetHttpPetition({
+    required Uri url,
+  }) async {
+    final http.Response response = await http.get(
+      url,
+    );
+
+    List<int> list = response.body.codeUnits;
+    Uint8List fileBytes = Uint8List.fromList(list);
+    DefaultCacheManager().putFile(url.toString(), fileBytes);
+
+    return CachedResponse(Response(
+      statusCode: HttpStatus.ok,
+      body: response.body,
+      bodyBytes: response.bodyBytes,
+      headers: const {
+        HttpHeaders.contentTypeHeader: "application/json;charset=utf-8",
+      },
+    ));
   }
 }

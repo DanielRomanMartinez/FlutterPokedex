@@ -8,5 +8,14 @@ abstract class HomeScreenEvent extends Equatable {
 }
 
 class LoadHomeScreen extends HomeScreenEvent {
-  const LoadHomeScreen();
+  final bool cached;
+
+  const LoadHomeScreen({
+    this.cached = true,
+  });
+
+  @override
+  List<Object?> get props => [
+        cached,
+      ];
 }

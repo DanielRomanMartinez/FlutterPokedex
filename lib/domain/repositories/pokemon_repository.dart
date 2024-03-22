@@ -8,5 +8,6 @@ abstract class PokemonRepository {
   Future<Map<String, dynamic>> getPokemons({
     required int offset,
     required int limit,
+    bool cached = true,
   });
 }

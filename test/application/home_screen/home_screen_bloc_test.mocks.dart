@@ -46,6 +46,7 @@ class MockPokemonRepository extends _i1.Mock implements _i2.PokemonRepository {
   _i3.Future<Map<String, dynamic>> getPokemons({
     required int? offset,
     required int? limit,
+    bool? cached = true,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -54,6 +55,7 @@ class MockPokemonRepository extends _i1.Mock implements _i2.PokemonRepository {
           {
             #offset: offset,
             #limit: limit,
+            #cached: cached,
           },
         ),
         returnValue:

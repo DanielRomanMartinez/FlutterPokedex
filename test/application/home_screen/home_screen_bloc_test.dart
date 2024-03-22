@@ -35,11 +35,12 @@ void main() {
 
     when(pokemonRepository.getPokemons(
       offset: 0,
-      limit: 10,
+      limit: 151,
+      cached: false,
     )).thenAnswer(
       (_) => Future.value({
         'offset': 0,
-        'limit': 10,
+        'limit': 151,
         'content': pokemons,
       }),
     );
@@ -53,7 +54,7 @@ void main() {
       verify: (_) {
         verifyNever(pokemonRepository.getPokemons(
           offset: 0,
-          limit: 10,
+          limit: 151,
         ));
       },
     );
@@ -62,19 +63,19 @@ void main() {
       'Send Load Event',
       build: () => HomeScreenBloc(
         pokemonRepository,
-      )..add(const LoadHomeScreen()),
+      )..add(const LoadHomeScreen(cached: false)),
       expect: () => [
         const LoadingHomeScreen(),
         HomeScreenLoaded(information: {
           'offset': 0,
-          'limit': 10,
+          'limit': 151,
           'content': pokemons,
         }),
       ],
       verify: (_) {
         verify(pokemonRepository.getPokemons(
           offset: 0,
-          limit: 10,
+          limit: 151,
         )).called(1);
       },
     );
