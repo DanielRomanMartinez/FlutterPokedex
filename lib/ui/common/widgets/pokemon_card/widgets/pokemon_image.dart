@@ -24,11 +24,15 @@ class PokemonImage extends StatelessWidget {
       child: Stack(
         children: [
           Center(
-            child:
-                Image.asset('assets/images/pokemon_type_logos/big_white/${pokemon.types.first.name.toLowerCase()}.png'),
+            child: Image.asset(
+                'assets/images/pokemon_type_logos/big_white/${pokemon.types.first.name.toLowerCase()}.png'),
           ),
           Center(
-            child: Image.network(pokemon.image),
+            child: CachedNetworkImage(
+              imageUrl: pokemon.image,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
           ),
         ],
       ),

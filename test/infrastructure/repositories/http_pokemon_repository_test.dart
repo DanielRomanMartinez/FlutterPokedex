@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_pokedex/config/endpoints.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
+import 'package:flutter_pokedex/domain/model/value_object/cached_response.dart';
 import 'package:flutter_pokedex/domain/model/value_object/response.dart';
 import 'package:flutter_pokedex/domain/repositories/captured_pokemon_repository.dart';
 import 'package:flutter_pokedex/domain/services/http_service.dart';
@@ -19,7 +20,8 @@ import 'http_pokemon_repository_test.mocks.dart';
 void main() {
   group('Tests over Pokemon Repository', () {
     final HttpService httpService = MockHttpService();
-    final CapturedPokemonsRepository capturedPokemonsRepository = MockCapturedPokemonsRepository();
+    final CapturedPokemonsRepository capturedPokemonsRepository =
+        MockCapturedPokemonsRepository();
 
     final HttpPokemonRepository repository = HttpPokemonRepository(
       httpService,
@@ -75,11 +77,13 @@ void main() {
         ),
       ).thenAnswer(
         (_) => Future.value(
-          Response(
-            body: httpPokemonListMockResponseOK,
-            statusCode: 200,
-            headers: const {'header': 'mock'},
-            bodyBytes: Uint8List(1),
+          CachedResponse(
+            Response(
+              body: httpPokemonListMockResponseOK,
+              statusCode: 200,
+              headers: const {'header': 'mock'},
+              bodyBytes: Uint8List(1),
+            ),
           ),
         ),
       );
@@ -95,17 +99,20 @@ void main() {
           },
         ),
       ).thenAnswer(
-            (_) => Future.value(
-          Response(
-            body: httpPokemonMockResponseOK,
-            statusCode: 200,
-            headers: const {'header': 'mock'},
-            bodyBytes: Uint8List(1),
+        (_) => Future.value(
+          CachedResponse(
+            Response(
+              body: httpPokemonMockResponseOK,
+              statusCode: 200,
+              headers: const {'header': 'mock'},
+              bodyBytes: Uint8List(1),
+            ),
           ),
         ),
       );
 
-      when(capturedPokemonsRepository.getPokemon(1)).thenAnswer((_) => Future.value(null));
+      when(capturedPokemonsRepository.getPokemon(1))
+          .thenAnswer((_) => Future.value(null));
 
       final result = await repository.getPokemons(offset: 0, limit: 10);
 

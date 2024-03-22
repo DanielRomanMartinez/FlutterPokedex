@@ -5,7 +5,7 @@ import 'package:flutter_pokedex/config/endpoints.dart';
 import 'package:flutter_pokedex/domain/exceptions/api_connection_error.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon_type.dart';
-import 'package:flutter_pokedex/domain/model/value_object/response.dart';
+import 'package:flutter_pokedex/domain/model/value_object/cached_response.dart';
 import 'package:flutter_pokedex/domain/repositories/captured_pokemon_repository.dart';
 import 'package:flutter_pokedex/domain/repositories/pokemon_repository.dart';
 import 'package:flutter_pokedex/domain/services/http_service.dart';
@@ -30,7 +30,7 @@ class HttpPokemonRepository implements PokemonRepository {
     required String name,
   }) async {
     try {
-      final Response httpPokemonResponse = await _httpService.get(
+      final CachedResponse httpPokemonResponse = await _httpService.get(
         Uri.https(
           Endpoints.urlServer,
           '${Endpoints.pokemon}/$name/',
@@ -40,8 +40,8 @@ class HttpPokemonRepository implements PokemonRepository {
         },
       );
 
-      if (httpPokemonResponse.statusCode == HttpStatus.ok) {
-        final Map<String, dynamic> pokemonResponse = jsonDecode(httpPokemonResponse.body);
+      if (httpPokemonResponse.response.statusCode == HttpStatus.ok) {
+        final Map<String, dynamic> pokemonResponse = jsonDecode(httpPokemonResponse.response.body);
 
         final List<PokemonType> pokemonTypes = [];
         for (final pokemonType in pokemonResponse['types']) {
@@ -74,7 +74,7 @@ class HttpPokemonRepository implements PokemonRepository {
     required int limit,
   }) async {
     try {
-      final Response httpResponse = await _httpService.get(
+      final CachedResponse httpResponse = await _httpService.get(
         Uri.https(
           Endpoints.urlServer,
           Endpoints.pokemons,
@@ -90,8 +90,8 @@ class HttpPokemonRepository implements PokemonRepository {
 
       final List<Pokemon> pokemons = [];
 
-      if (httpResponse.statusCode == HttpStatus.ok) {
-        final Map<String, dynamic> response = jsonDecode(httpResponse.body);
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        final Map<String, dynamic> response = jsonDecode(httpResponse.response.body);
 
         for (final pokemon in response['results']) {
           await getPokemon(name: pokemon['name'])

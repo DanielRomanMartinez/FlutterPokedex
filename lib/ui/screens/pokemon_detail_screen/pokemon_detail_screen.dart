@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pokedex/application/bloc/pokemon_detail_screen/pokemon_detail_screen_bloc.dart';
@@ -69,9 +70,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                         ),
                       ),
                       Center(
-                        child: Image.network(
-                          state.pokemon.image,
-                          scale: 0.1,
+                        child: CachedNetworkImage(
+                          imageUrl: state.pokemon.image,
+                          width: 25,
+                          placeholder: (context, url) => const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
                         ),
                       ),
                       InkWell(

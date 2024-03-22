@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter_pokedex/domain/model/value_object/cached_response.dart';
 import 'package:flutter_pokedex/domain/model/value_object/response.dart';
 
 abstract class HttpService {
-  Future<Response> get(
+  Future<CachedResponse> get(
     Uri url, {
     Map<String, String>? headers,
   });

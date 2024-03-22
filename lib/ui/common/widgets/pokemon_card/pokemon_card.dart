@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_pokedex/domain/model/objects/pokemon.dart';
 import 'package:flutter_pokedex/extensions/string_extension.dart';
 import 'package:flutter_pokedex/ui/common/theme/shapes.dart';

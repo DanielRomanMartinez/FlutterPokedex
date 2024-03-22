@@ -3,14 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
-import 'dart:convert' as _i5;
+import 'dart:async' as _i5;
+import 'dart:convert' as _i6;
 
-import 'package:flutter_pokedex/domain/model/objects/pokemon.dart' as _i7;
-import 'package:flutter_pokedex/domain/model/value_object/response.dart' as _i2;
+import 'package:flutter_pokedex/domain/model/objects/pokemon.dart' as _i8;
+import 'package:flutter_pokedex/domain/model/value_object/cached_response.dart'
+    as _i2;
+import 'package:flutter_pokedex/domain/model/value_object/response.dart' as _i3;
 import 'package:flutter_pokedex/domain/repositories/captured_pokemon_repository.dart'
-    as _i6;
-import 'package:flutter_pokedex/domain/services/http_service.dart' as _i3;
+    as _i7;
+import 'package:flutter_pokedex/domain/services/http_service.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,8 +28,19 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeResponse_0 extends _i1.SmartFake implements _i2.Response {
-  _FakeResponse_0(
+class _FakeCachedResponse_0 extends _i1.SmartFake
+    implements _i2.CachedResponse {
+  _FakeCachedResponse_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeResponse_1 extends _i1.SmartFake implements _i3.Response {
+  _FakeResponse_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -39,13 +52,13 @@ class _FakeResponse_0 extends _i1.SmartFake implements _i2.Response {
 /// A class which mocks [HttpService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHttpService extends _i1.Mock implements _i3.HttpService {
+class MockHttpService extends _i1.Mock implements _i4.HttpService {
   MockHttpService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Response> get(
+  _i5.Future<_i2.CachedResponse> get(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -55,7 +68,7 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i5.Future<_i2.CachedResponse>.value(_FakeCachedResponse_0(
           this,
           Invocation.method(
             #get,
@@ -63,14 +76,14 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             {#headers: headers},
           ),
         )),
-      ) as _i4.Future<_i2.Response>);
+      ) as _i5.Future<_i2.CachedResponse>);
 
   @override
-  _i4.Future<_i2.Response> post(
+  _i5.Future<_i3.Response> post(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i5.Encoding? encoding,
+    _i6.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -82,7 +95,7 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             #encoding: encoding,
           },
         ),
-        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i5.Future<_i3.Response>.value(_FakeResponse_1(
           this,
           Invocation.method(
             #post,
@@ -94,14 +107,14 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Response>);
+      ) as _i5.Future<_i3.Response>);
 
   @override
-  _i4.Future<_i2.Response> put(
+  _i5.Future<_i3.Response> put(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i5.Encoding? encoding,
+    _i6.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -113,7 +126,7 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             #encoding: encoding,
           },
         ),
-        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i5.Future<_i3.Response>.value(_FakeResponse_1(
           this,
           Invocation.method(
             #put,
@@ -125,14 +138,14 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Response>);
+      ) as _i5.Future<_i3.Response>);
 
   @override
-  _i4.Future<_i2.Response> delete(
+  _i5.Future<_i3.Response> delete(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i5.Encoding? encoding,
+    _i6.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -144,7 +157,7 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             #encoding: encoding,
           },
         ),
-        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i5.Future<_i3.Response>.value(_FakeResponse_1(
           this,
           Invocation.method(
             #delete,
@@ -156,55 +169,55 @@ class MockHttpService extends _i1.Mock implements _i3.HttpService {
             },
           ),
         )),
-      ) as _i4.Future<_i2.Response>);
+      ) as _i5.Future<_i3.Response>);
 }
 
 /// A class which mocks [CapturedPokemonsRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCapturedPokemonsRepository extends _i1.Mock
-    implements _i6.CapturedPokemonsRepository {
+    implements _i7.CapturedPokemonsRepository {
   MockCapturedPokemonsRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<List<_i7.Pokemon>> getPokemons({String? name}) =>
+  _i5.Future<List<_i8.Pokemon>> getPokemons({String? name}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPokemons,
           [],
           {#name: name},
         ),
-        returnValue: _i4.Future<List<_i7.Pokemon>>.value(<_i7.Pokemon>[]),
-      ) as _i4.Future<List<_i7.Pokemon>>);
+        returnValue: _i5.Future<List<_i8.Pokemon>>.value(<_i8.Pokemon>[]),
+      ) as _i5.Future<List<_i8.Pokemon>>);
 
   @override
-  _i4.Future<_i7.Pokemon?> getPokemon(int? id) => (super.noSuchMethod(
+  _i5.Future<_i8.Pokemon?> getPokemon(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getPokemon,
           [id],
         ),
-        returnValue: _i4.Future<_i7.Pokemon?>.value(),
-      ) as _i4.Future<_i7.Pokemon?>);
+        returnValue: _i5.Future<_i8.Pokemon?>.value(),
+      ) as _i5.Future<_i8.Pokemon?>);
 
   @override
-  _i4.Future<void> markAsCaptured(_i7.Pokemon? pokemon) => (super.noSuchMethod(
+  _i5.Future<void> markAsCaptured(_i8.Pokemon? pokemon) => (super.noSuchMethod(
         Invocation.method(
           #markAsCaptured,
           [pokemon],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> removePokemon(int? id) => (super.noSuchMethod(
+  _i5.Future<void> removePokemon(int? id) => (super.noSuchMethod(
         Invocation.method(
           #removePokemon,
           [id],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
